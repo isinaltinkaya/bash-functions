@@ -1,3 +1,4 @@
+#tried all with bash and some with zsh, use at your own risk of messing up your everything :)
 
 # ssh and cd to the current directory
 # use just like you use ssh
@@ -29,6 +30,37 @@ lns(){
 		ln -vs ${SRC} ${CDIR}/${FNAME}
 	fi
 }
+
+# this is not mine, probably stole it from tunc or someone
+#
+# # ex - archive extractor
+# # usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# you have the file name with path in the clipboard but need to cd to its dir instead?
+# if you can't cd to /path/to/someFile this will cd you to /path/to
+function cd(){ builtin cd "${1}"; if [ $? -eq 1 ];then TO=$(dirname ${1});echo "cding to ${TO} instead" ;builtin cd ${TO};fi;}
+
 
 
 ###
