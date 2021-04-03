@@ -3,6 +3,7 @@
 # ssh and cd to the current directory
 # use just like you use ssh
 
+. /usr/share/bash-completion/completions/ssh #load _ssh function
 complete -F _ssh sshh #to copy the ssh auto completion
 sshh(){
 	echo "sshing to ${1} and cding to ${PWD}" #my ugly made-up terms
