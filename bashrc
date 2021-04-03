@@ -60,7 +60,27 @@ ex ()
 
 # you have the file name with path in the clipboard but need to cd to its dir instead?
 # if you can't cd to /path/to/someFile this will cd you to /path/to
-function cd(){ builtin cd "${1}"; if [ $? -eq 1 ];then TO=$(dirname ${1});echo "cding to ${TO} instead" ;builtin cd ${TO};fi;}
+function cd(){
+	if [[ -z ${1} ]];then #if no arg given
+		builtin cd ${HOME} #default cd behavior
+	else
+		#proper dir given
+		if [[ -d ${1} ]];then
+			builtin cd ${1}
+		#if it's a file
+		elif [[ -f ${1} ]];then
+			TO=$(dirname ${1})
+			if [[ ${TO} != "." ]];then
+				echo "cding to ${TO} instead"
+				builtin cd ${TO}
+			fi
+		elif [[ ${1} == "-" ]];then
+			builtin cd ${OLDPWD}
+		else
+			echo "${1}?"
+		fi
+	fi
+}
 
 
 
