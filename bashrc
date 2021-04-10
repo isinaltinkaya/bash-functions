@@ -82,6 +82,17 @@ function cd(){
 	fi
 }
 
+# get better output from uniq -c
+# comma delimited, e.g.:
+# 2,1044035
+# 1,1044038
+# instead of ugly:
+#       2 1044035
+#       1 1044038
+
+uniqc(){
+        uniq -c |sed -e 's/^ *//;s/ /,/'
+}
 
 
 ###
