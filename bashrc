@@ -4,11 +4,20 @@
 # use just like you use ssh
 
 sshh(){
-	. /usr/share/bash-completion/completions/ssh #load _ssh function
+	source /usr/share/bash-completion/completions/ssh #load _ssh function
 	complete -F _ssh sshh #to copy the ssh auto completion
 	echo "sshing to ${1} and cding to ${PWD}" #my ugly made-up terms
 	ssh -t ${1} "cd $PWD;bash --login" #change this accordingly if you want to use x11 forwarding etc
 }
+
+## or feed it with a list
+SERVERS="server1 server2 server3"
+sshh(){
+	echo "sshing to ${1} and cding to ${PWD}" #my ugly made-up terms
+	ssh -t ${1} "cd $PWD;bash --login" #change this accordingly if you want to use x11 forwarding etc
+}
+IFS=" "; complete -W "${SERVERS}" sshh
+
 
 # easy and proper symbolic link
 # since it's not that safe to use relative paths
