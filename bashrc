@@ -104,6 +104,11 @@ uniqc(){
 }
 
 
+## run Rscript in echo=TRUE spaced=TRUE mode, easily
+rsc(){
+	Rscript -e 'source(file("stdin"),echo=TRUE,spaced=TRUE)'< ${1}
+}
+
 ###
 # below are not functions but hey
 ###
