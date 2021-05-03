@@ -43,9 +43,9 @@ lns(){
 
 # this is not mine, probably stole it from tunc or someone
 #
-# # ex - archive extractor
-# # usage: ex <file>
-ex ()
+# # ext - archive extractor
+# # usage: ext <file>
+ext ()
 {
   if [ -f $1 ] ; then
     case $1 in
