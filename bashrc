@@ -109,6 +109,31 @@ rsc(){
 	Rscript -e 'source(file("stdin"),echo=TRUE,spaced=TRUE)'< ${1}
 }
 
+
+## index all; if you are too lazy to write a for loop
+idxall(){
+	if [[ -z ${1} ]];then #if no arg given
+		for i in *{bam,cram};do
+			if ! [[ -f ${i}.bai || -f ${i}.crai ]];then
+				echo "${i} does not have an index file; will index";
+				echo "running => nohup samtools index -@4 ${i} &";
+				nohup samtools index -@4 ${i} &
+			fi
+		done
+	else
+		printf "${@}\n"
+		for i in "${@}";do
+			if ! [[ -f ${i}.bai || -f ${i}.crai ]];then
+				echo "${i} does not have an index file; will index";
+				echo "running => nohup samtools index -@4 ${i} &";
+				nohup samtools index -@4 ${i} &
+			fi
+		done
+	fi
+}
+
+
+
 ###
 # below are not functions but hey
 ###
