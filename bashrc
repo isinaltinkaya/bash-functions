@@ -133,6 +133,21 @@ idxall(){
 }
 
 
+##quick access to different projects
+#lazy to type the path but not lazy to write a bash function for it :)
+function cdp(){
+        shp="/PATH/TO/projects"
+	#if no arg given, cd to projects main dir
+        if [[ -z ${1} ]];then 
+                builtin cd ${shp}
+        else
+                #given project id
+                TO=${shp}/${1}*
+                builtin cd ${TO}
+        fi
+}
+
+
 
 ###
 # below are not functions but hey
