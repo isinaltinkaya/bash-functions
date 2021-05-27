@@ -30,14 +30,19 @@ IFS=" " command eval 'complete -W "${SERVERS}" sshh'
 # anotherDir/someFile -> realpath/of/someFile
 lns(){
 	SRC=$(realpath ${1})
-	CDIR=$(pwd)
-	FNAME=$(basename ${1})
-	if [[ -n ${2} ]]
+	if ! test -f ${SRC}
 	then
-		mkdir -vp ${CDIR}/${2}
-		ln -vs ${SRC} ${CDIR}/${2}/${FNAME}
+		echo "${SRC} does not exist, will exit";
 	else
-		ln -vs ${SRC} ${CDIR}/${FNAME}
+		CDIR=$(pwd)
+		FNAME=$(basename ${1})
+		if [[ -n ${2} ]]
+		then
+		mkdir -vp ${CDIR}/${2}
+			ln -vs ${SRC} ${CDIR}/${2}/${FNAME}
+		else
+			ln -vs ${SRC} ${CDIR}/${FNAME}
+		fi
 	fi
 }
 
