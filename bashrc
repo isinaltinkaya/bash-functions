@@ -29,19 +29,18 @@ IFS=" " command eval 'complete -W "${SERVERS}" sshh'
 # to define another dir use `lns ../someFile anotherDir`
 # anotherDir/someFile -> realpath/of/someFile
 lns(){
-	SRC=$(realpath ${1})
-	if ! test -f ${SRC}
+	if [[ ! -f ${1} ]];
 	then
-		echo "${SRC} does not exist, will exit";
+		echo "${1} does not exist, will exit";
 	else
-		CDIR=$(pwd)
+		SRC=$(realpath ${1})
 		FNAME=$(basename ${1})
 		if [[ -n ${2} ]]
 		then
-		mkdir -vp ${CDIR}/${2}
-			ln -vs ${SRC} ${CDIR}/${2}/${FNAME}
+			mkdir -vp ${PWD}/${2}
+			ln -vs ${SRC} ${PWD}/${2}/${FNAME}
 		else
-			ln -vs ${SRC} ${CDIR}/${FNAME}
+			ln -vs ${SRC} ${PWD}/${FNAME}
 		fi
 	fi
 }
