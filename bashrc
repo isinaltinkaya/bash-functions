@@ -29,7 +29,7 @@ IFS=" " command eval 'complete -W "${SERVERS}" sshh'
 # to define another dir use `lns ../someFile anotherDir`
 # anotherDir/someFile -> realpath/of/someFile
 lns(){
-	if [[ ! -f ${1} ]];
+	if [[ ! -f ${1} ]] &&  [[ ! -d ${1} ]]
 	then
 		echo "${1} does not exist, will exit";
 	else
