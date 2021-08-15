@@ -151,6 +151,24 @@ function cdp(){
         fi
 }
 
+## safer way to remove possibly-important stuff, check files matching query
+# query can contain wildcards
+srm(){
+	(ls "$@")
+	local CODE=$?
+	if [ ${CODE} -eq 0 ];then
+		printf "Will delete following files:\n$(ls "$@")\n"|less 
+		while true;do
+			read -p "Will delete them all. Are you sure? " yn
+			case $yn in
+				[Yy]* ) rm -v "$@";break;;
+				[Nn]* ) echo "You said no, will exit";break;;
+				* ) echo "Yes or no?";;
+			esac
+		done
+	fi
+}
+
 
 
 ###
