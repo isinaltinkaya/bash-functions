@@ -169,6 +169,9 @@ srm(){
 	fi
 }
 
+## count of files matching query
+# too lazy to write it, not too lazy to write a function for it :)
+cof(){ ls "${@}"|wc -l }
 
 
 ###
