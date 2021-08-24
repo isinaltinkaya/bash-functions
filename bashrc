@@ -174,6 +174,15 @@ srm(){
 cof(){ ls "${@}"|wc -l ;}
 
 
+## quick sam to bam conversion
+# to have fun with modified sam files
+s2b(){
+	test -f ${1%.sam}.bam && rm -v ${1%.sam}.bam
+	samtools view -bS ${1} > ${1%.sam}.bam
+	samtools index ${1%.sam}.bam
+}
+
+
 ###
 # below are not functions but hey
 ###
