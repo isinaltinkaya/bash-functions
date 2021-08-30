@@ -174,7 +174,7 @@ srm(){
 cof(){ ls "${@}"|wc -l ;}
 
 ## less the ls with retaining the colors
-lsl(){ ls -R --color "${@}" | less -r; }
+lsl(){ ls --color "${@}" | less -r; }
 
 ## quick sam to bam conversion
 # to have fun with modified sam files
