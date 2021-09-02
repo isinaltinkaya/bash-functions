@@ -184,6 +184,10 @@ s2b(){
 	samtools index ${1%.sam}.bam
 }
 
+## sumcol: easy way to get the sum of a column
+# usage: sumcol ${file} ${seperator} ${colindex}
+sumcol(){ awk -v SEPERATOR=${2} -v COLINDEX=${3} '{split($0,a,SEPERATOR); sum += a[COLINDEX]} END {print sum}' ${1}}
+
 
 ###
 # below are not functions but hey
