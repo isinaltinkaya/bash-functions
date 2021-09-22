@@ -188,6 +188,24 @@ s2b(){
 # usage: sumcol ${file} ${seperator} ${colindex}
 sumcol(){ awk -v SEPERATOR=${2} -v COLINDEX=${3} '{split($0,a,SEPERATOR); sum += a[COLINDEX]} END {print sum}' ${1}}
 
+#for i in
+fin(){
+	USAGE="Usage: fin <wildcard> <command to execute with \$i>"
+	if [ "$#" == "0" ]; then
+		echo "$USAGE"
+	else
+		ITEMS=( "${@:1:$(($# - 1))}" )
+		CMD=${@:${#@}}
+		#echo "Executing command $CMD"
+
+		for i in "${ITEMS[@]}";do
+			echo $i
+			eval ${CMD} ${i}
+		done
+	fi
+}
+
+
 
 ###
 # below are not functions but hey
