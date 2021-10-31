@@ -1,7 +1,7 @@
-# Isin's hacky `.bashrc` functions
+# `.bashrc` functions
 
 Time saver functions to add your `.bashrc`.
-- Should be mostly compatible with zsh, would recommend checking it first.
+- Should be compatible with zsh, would recommend checking it first tho.
 - Feel free to use (at your own risk).
 
 ![img](https://imgs.xkcd.com/comics/automation.png)
