@@ -206,6 +206,25 @@ fin(){
 }
 
 
+putrm(){
+	README=${PWD}/README.txt
+	if test -f "${README}";then
+		printf "\n${README} already exists; will open it instead!\n"
+		vim + ${README} # goes to last line
+	else
+		printf "Will put README.md in PWD: ${PWD}\n"
+		cat > "$README" << EOF
+# ${README}
+$(date +'# %D #%n# %T #%n')
+# Isin Altinkaya [isinaltinkaya[at]gmail.com]
+# NOTE:
+EOF
+		vim $README -c ":5"
+	fi
+}
+
+
+
 
 ###
 # below are not functions but hey
