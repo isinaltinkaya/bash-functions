@@ -236,6 +236,44 @@ chmodd() {
 }
 
 
+setsink(){
+
+    sinkid=${1}
+
+    #cable + headphones
+    if [[ ${sinkid} == "chp" ]]; then
+        mysink="alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink" 
+    else
+        echo "Unknown sink ${sinkid}"
+        mysink=""
+    fi
+    
+    #if known sink
+    if [ ! -z ${mysink+x} ];then
+
+        pactl set-default-sink ${mysink} 
+
+        if [ ! -z ${2+x} ];then
+
+            if [[ ${2} == *% ]];then
+                pactl set-sink-volume ${mysink} ${2} 
+                echo "Sink set to ${mysink} with volume ${2}"
+            else
+                pactl set-sink-volume ${mysink} ${2}% 
+                echo "Sink set to ${mysink} with volume ${2}%"
+            fi
+
+        else
+            echo "Sink set to ${mysink}"
+        fi
+    fi
+
+}
+
+#set default source to tp source
+pactl set-default-source 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source'
+pactl set-source-volume 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source' 60%
+
 
 ###
 # below are not functions but hey
