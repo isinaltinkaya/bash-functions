@@ -225,6 +225,17 @@ EOF
 
 
 
+## find all files/dirs and chmod $1
+### credit: https://stackoverflow.com/a/42975697/7870777
+
+chmodf() {
+        find $2 -type f -exec chmod $1 {} \;
+}
+chmodd() {
+        find $2 -type d -exec chmod $1 {} \;
+}
+
+
 
 ###
 # below are not functions but hey
