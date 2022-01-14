@@ -270,6 +270,24 @@ setsink(){
 
 }
 
+
+#check file list
+#input is a list of files, one file per line
+cfl(){
+	
+	INFILE=${1}
+	for Fi in $(cat ${INFILE});do
+		if [[ -f ${Fi} ]]; then
+			ANY=0
+		else
+			printf "File not found: ${Fi}"
+			ANY=1
+		fi
+	done
+
+}
+
+
 #set default source to tp source
 pactl set-default-source 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source'
 pactl set-source-volume 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source' 60%
