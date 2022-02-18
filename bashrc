@@ -288,6 +288,17 @@ cfl(){
 }
 
 
+
+#cd to dir workaround
+cdd(){
+
+        CDTO=$(realpath $(dirname ${1}))
+        echo "cding to ${CDTO}"
+        cd ${CDTO}
+
+}
+
+
 #set default source to tp source
 pactl set-default-source 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source'
 pactl set-source-volume 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source' 60%
