@@ -316,3 +316,10 @@ alias src="type src; source ~/.bashrc"
 alias scls="screen -ls"
 alias scs="screen -S"
 alias scr="screen -r"
+
+
+
+
+## unmount all
+## credit: https://www.joeldare.com/wiki/linux:unmount_all_fuse_mount_points
+alias umall="mount -l -t fuse.sshfs | awk -F " " '{print "fusermount -u " $3}' | bash"
