@@ -287,6 +287,11 @@ cfl(){
 
 }
 
+#gzip keep original
+#-k does not work with some versions
+gzik(){
+	gzip < ${1} > ${1}.gz
+}
 
 
 #cd to dir workaround
