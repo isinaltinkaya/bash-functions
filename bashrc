@@ -308,6 +308,23 @@ cdd(){
 pactl set-default-source 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source'
 pactl set-source-volume 'alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source' 60%
 
+#you never know when you'll need a fresh installation of angsd
+getangsd(){
+
+        if [[ -z ${1} ]];then BRANCH="master";
+                else
+                BRANCH=${1}
+        fi
+
+        git clone git@github.com:ANGSD/angsd.git;
+        cd angsd;
+        git checkout ${BRANCH};
+        make
+
+
+}
+
+
 
 ###
 # below are not functions but hey
