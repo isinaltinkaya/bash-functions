@@ -325,6 +325,44 @@ getangsd(){
 }
 
 
+# runda- env-safe runner for conda. fixes all the annoying conda related issues.
+function runda() {
+
+        CONDABIN="/home/isin/Programs/anaconda3/bin"
+        CONDA="${CONDABIN}/conda"
+
+        # Check if conda is in the PATH or use ${CONDABIN}/conda if it is not
+        if ! command -v conda > /dev/null; then
+                printf "\n[INFO]: \`conda\` is not available in PATH; will try \${CONDABIN}/conda\n"
+                CONDA="${CONDABIN}/conda"
+        fi
+
+        if ! command -v ${CONDA} > /dev/null; then
+                printf "\n[ERROR]: Cannot find conda at \$\{CONDABIN\}/conda. Please update CONDABIN to the bin path of your conda installation.\n\te.g. /home/isin/Programs/anaconda3/bin\n\n"
+        else
+
+
+
+                # Activate or deactivate conda based on the passed option
+                case "$1" in
+                        activate)
+                                eval "$(command ${CONDA} 'shell.bash' 'hook' 2> /dev/null)"
+                                export PATH="${CONDABIN}:$PATH";
+                                conda ${@}
+                                ;;
+                        deactivate)
+                                conda deactivate
+                                export PATH=${PATH%:${CONDABIN}};
+                                ;;
+                        *)
+                                "${CONDA}" "$@"
+                                ;;
+                esac
+        fi
+}
+
+
+
 
 ###
 # below are not functions but hey
