@@ -364,6 +364,16 @@ function runda() {
 
 
 
+# print tree structure of a git repository and format it for markdown 
+function treemd(){
+        ID=$(basename -s .git $(git config --get remote.origin.url))
+        URL=$(git config --get remote.origin.url)
+        tree=$(tree -f --noreport --charset ascii -F ${@} -I "README.md|README.MD|readme.MD|readme.md" | sed -e 's/| \+/  /g' -e 's/[|`]-\+/ */g' -e 's:\(* \)\(\(.*/\)\([^/]\+\)\):\1[\4](\2):g' | sed -E 's/^(\ \*\ \[)(([a-z_-]+))/\1**\2**/g' | sed -e "s/^.$/**${ID}**/g")
+        printf "## Repository structure\n${tree}\n"
+}
+
+
+
 ###
 # below are not functions but hey
 ###
@@ -385,3 +395,7 @@ alias scr="screen -r"
 umall(){
 	mount -l -t fuse.sshfs | awk -F " " '{print "fusermount -u " $3}' | bash
 }
+
+
+
+
