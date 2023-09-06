@@ -44,14 +44,14 @@ keep(){
         return 1
     fi
 
-    local filename=$(basename "$1")
+    local fn=$(basename "$1")
     local date=$(date '+%Y%m%d')
     local dtime=$(date '+%Y%m%d_%H%M%S')
 
     local dest_dir="$HOME/keep/keep_${date}"
     mkdir -p "${dest_dir}"
 
-    local dest_path="${dest_dir}/keep_${dtime}_$fn"
+    local dest_path="${dest_dir}/keep_${dtime}_${fn}"
 
     if [[ -e "${dest_path}" ]]; then
         echo "Error: A keep copy of the file already exists at ${dest_path}."
