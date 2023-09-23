@@ -63,3 +63,10 @@ keep(){
 
     echo "Keeping a copy of '$1' at '${dest_path}'"
 }
+
+# rerun the previous command and view its output with less 
+lll (){
+    cmd=$(history -1|cut -d' ' -f3-)                                            
+    ${cmd} 2>&1 | less -SN
+}
+
