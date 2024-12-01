@@ -398,4 +398,43 @@ umall(){
 
 
 
+## easy compression for directories
+## usage: tardir mydir/
+##  -> creates mydir.tar.gz
+## tardir mydir
+##  -> creates mydir.tar.gz
+## tardir mydir tarname
+##  -> creates tarname.tar.gz
+tardir(){
+
+	local dirname="${1}"
+	if [ -d "${dirname}" ];then
+		dirname=${dirname%/*}
+	else
+		echo "ERROR: Directory $dirname does not exist. Will not create a tarball"
+	fi
+	if [[ ! -z "$2" ]]; then
+		local tarname="${2}"
+	else
+		local tarname="${dirname}"
+	fi
+
+	local cmd="tar czf ${tarname}.tar.gz ${dirname}"
+	echo
+	echo "Will run command: $cmd"
+	printf "\nContinue? (Y/n): "
+	read -n 1 answer
+	if [[ "$answer" == "y" || "$answer" == "Y" || "$answer" == "" ]]; then
+		printf "\n\n-> Running...\n\n"
+		eval ${cmd};
+	else
+		printf "\n\nYou said no; will exit.\n"
+	fi
+
+	echo "New tarball: $(realpath ${tarname}.tar.gz)"
+
+}
+
+
+
 
