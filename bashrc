@@ -1,8 +1,39 @@
 #tried all with bash and some with zsh, use at your own risk of messing up your everything :)
 
+#!/bin/bash
+
+runcmd(){
+     local cmd="$*"
+     echo
+     echo "Will run command: ${cmd}"
+     printf "\nContinue? (Y/n): "
+     read -rn 1 answer
+     if [[ "${answer}" == "y" || "${answer}" == "Y" || "${answer}" == "" ]]; then
+         printf "\n\n-> Running...\n\n"
+         eval "${cmd}";
+     else
+         printf "\n\nYou said no; will exit.\n"
+     fi
+}
+
+# clean all broken symlinks in a dir
+symclean(){
+
+        local dir=""
+        
+        dir="${1}"
+        if [[ -z "${dir}" ]];then
+                dir=$(realpath .)
+        fi
+        
+        cmd="find ${dir} -xtype l -delete"
+                
+        runcmd "${cmd}"
+        
+}
+
 # ssh and cd to the current directory
 # use just like you use ssh
-
 sshh(){
 	source /usr/share/bash-completion/completions/ssh #load _ssh function
 	complete -F _ssh sshh #to copy the ssh auto completion
@@ -436,5 +467,5 @@ tardir(){
 }
 
 
-
+find . -xtype l -delete
 
